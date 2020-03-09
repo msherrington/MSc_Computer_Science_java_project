@@ -3,14 +3,7 @@ package fraction;
 public class FractionImpl implements Fraction {
 
     private int numerator;
-    private int denominator = 1;
-
-
-//    greatestCommonDivisor
-    private static int GCD(int n, int d) {
-        if (d == 0) return n;
-        return GCD(d,n % d);
-    }
+    private int denominator;
 
     /**
      * Parameters are the <em>numerator</em> and the <em>denominator</em>.
@@ -24,11 +17,7 @@ public class FractionImpl implements Fraction {
      * @param denominator:
      */
     public FractionImpl(int numerator, int denominator) {
-
-        int gcd = FractionImpl.GCD(numerator,denominator);
-        this.numerator = numerator / gcd;
-        this.denominator = denominator / gcd;
-        // TODO: throw ArithmeticException if denominator zero or less
+        normalise(numerator, denominator);
     }
 
     /**
@@ -37,9 +26,7 @@ public class FractionImpl implements Fraction {
      * @param wholeNumber representing the numerator
      */
     public FractionImpl(int wholeNumber) {
-        this.numerator = wholeNumber;
-//        this.denominator = 1;
-        // TODO
+        normalise(wholeNumber, 1);
     }
 
     /**
@@ -54,36 +41,44 @@ public class FractionImpl implements Fraction {
      * @param fraction the string representation of the fraction
      */
     public FractionImpl(String fraction) {
+        fraction = fraction.replace(" ", "");
         String[] array = fraction.split("/");
-        if (array.length < 3) {
-            try {
-                this.numerator = Integer.parseInt(array[0]);
-                System.out.println(this.numerator);
-
-                if (array.length == 2) {
-                    this.denominator = Integer.parseInt(array[1]);
-                    System.out.println(this.denominator);
+        if (array.length == 0) {
+            // throw error properly here
+        } else if (array.length < 3) {
+            int[] ints = new int[array.length];
+            for (int i = 0; i < array.length; i++) {
+                try {
+                    ints[i] = Integer.parseInt(array[i]);
+                } catch (NumberFormatException e) {
+                    // throw e exception properly here
+                    System.out.println("Cannot parse " + array[i]);
                 }
-            } catch (NumberFormatException e) {
-                // throw e exception
-                System.out.println("Cannot parse " + array[0] + array[1]);
             }
+            int n = ints[0];
+            int d = 1;
+            try {
+                d = ints[1];
+            } catch (ArrayIndexOutOfBoundsException e) {
+                // suppress or ignore the exception
+            }
+            normalise(n, d);
         } else {
             System.out.println("error:" + array.length); // throw error properly
         }
-        // TODO
     }
 
-//    public static void stringToInt(int thingy, String input) {
-//        try {
-//            thingy = Integer.parseInt(input);
-//            System.out.println(thingy);
-//
-//        } catch (NumberFormatException e) {
-//            // throw e exception
-//            System.out.println("Cannot parse " + input);
-//        }
-//    }
+    public void normalise(int n, int d) {
+        // throw ArithmeticException if denominator zero or less
+        int gcd = greatestCommonDivisor(n, d);
+        this.numerator = n / gcd;
+        this.denominator = d / gcd;
+    }
+
+    private static int greatestCommonDivisor(int n, int d) {
+        if (d == 0) return n;
+        return greatestCommonDivisor(d,n % d);
+    }
 
     /**
      * @inheritDoc
