@@ -44,14 +44,14 @@ public class FractionImpl implements Fraction {
         fraction = fraction.replace(" ", "");
         String[] array = fraction.split("/");
         if (array.length == 0) {
-            // throw error properly here
+            // TODO: throw error properly here
         } else if (array.length < 3) {
             int[] ints = new int[array.length];
             for (int i = 0; i < array.length; i++) {
                 try {
                     ints[i] = Integer.parseInt(array[i]);
                 } catch (NumberFormatException e) {
-                    // throw e exception properly here
+                    // TODO: throw e exception properly here
                     System.out.println("Cannot parse " + array[i]);
                 }
             }
@@ -60,16 +60,16 @@ public class FractionImpl implements Fraction {
             try {
                 d = ints[1];
             } catch (ArrayIndexOutOfBoundsException e) {
-                // suppress or ignore the exception
+                // TODO: suppress or ignore the exception
             }
             normalise(n, d);
         } else {
-            System.out.println("error:" + array.length); // throw error properly
+            System.out.println("error:" + array.length); // TODO: throw error properly
         }
     }
 
     public void normalise(int n, int d) {
-        // throw ArithmeticException if denominator zero or less
+        // TODO: throw ArithmeticException if denominator zero or less
         int gcd = greatestCommonDivisor(n, d);
         this.numerator = n / gcd;
         this.denominator = d / gcd;
