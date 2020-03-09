@@ -3,7 +3,7 @@ package fraction;
 public class FractionImpl implements Fraction {
 
     private int numerator;
-    private int denominator;
+    private int denominator = 1;
 
 
 //    greatestCommonDivisor
@@ -11,7 +11,7 @@ public class FractionImpl implements Fraction {
         if (d == 0) return n;
         return GCD(d,n % d);
     }
-    
+
     /**
      * Parameters are the <em>numerator</em> and the <em>denominator</em>.
      * Normalize the fraction as you create it.
@@ -20,8 +20,8 @@ public class FractionImpl implements Fraction {
      *
      * The constructor should throw an <pre>ArithmeticException</pre> if the denominator is zero.
      *
-     * @param numerator
-     * @param denominator
+     * @param numerator:
+     * @param denominator:
      */
     public FractionImpl(int numerator, int denominator) {
 
@@ -38,7 +38,7 @@ public class FractionImpl implements Fraction {
      */
     public FractionImpl(int wholeNumber) {
         this.numerator = wholeNumber;
-        this.denominator = 1;
+//        this.denominator = 1;
         // TODO
     }
 
@@ -54,8 +54,36 @@ public class FractionImpl implements Fraction {
      * @param fraction the string representation of the fraction
      */
     public FractionImpl(String fraction) {
+        String[] array = fraction.split("/");
+        if (array.length < 3) {
+            try {
+                this.numerator = Integer.parseInt(array[0]);
+                System.out.println(this.numerator);
+
+                if (array.length == 2) {
+                    this.denominator = Integer.parseInt(array[1]);
+                    System.out.println(this.denominator);
+                }
+            } catch (NumberFormatException e) {
+                // throw e exception
+                System.out.println("Cannot parse " + array[0] + array[1]);
+            }
+        } else {
+            System.out.println("error:" + array.length); // throw error properly
+        }
         // TODO
     }
+
+//    public static void stringToInt(int thingy, String input) {
+//        try {
+//            thingy = Integer.parseInt(input);
+//            System.out.println(thingy);
+//
+//        } catch (NumberFormatException e) {
+//            // throw e exception
+//            System.out.println("Cannot parse " + input);
+//        }
+//    }
 
     /**
      * @inheritDoc
