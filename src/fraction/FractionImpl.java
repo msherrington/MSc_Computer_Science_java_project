@@ -71,12 +71,12 @@ public class FractionImpl implements Fraction {
     public void normalise(int num, int denom) {
         // TODO: throw ArithmeticException if denominator zero or less
         if (num == 0) {
-            numerator = num;
-            denominator = 1;
+            this.numerator = num;
+            this.denominator = 1;
         } else {
             int gcd = greatestCommonDivisor(num, denom);
-            numerator = num / gcd;
-            denominator = denom / gcd;
+            this.numerator = num / gcd;
+            this.denominator = denom / gcd;
         }
     }
 
@@ -90,7 +90,16 @@ public class FractionImpl implements Fraction {
      */
     @Override
     public Fraction add(Fraction f) {
-        return ((this.numerator * f.denominator) + (this.denominator * f.numerator)) / (this.denominator * f.denominator);
+        // TODO: CHECK THE CALCULATIONS AND USING VARIABLES IN CORRECT PLACES
+//        a = this.numerator;
+//        b = this.denominator;
+//        c = f.numerator;
+//        d = f.denominator;
+//        return (ad + bc)/bd
+        FractionImpl frac = (FractionImpl) f;
+        int num = (this.numerator * frac.denominator) + (this.denominator * frac.numerator);
+        int denom = this.denominator * frac.denominator;
+        return new FractionImpl(num, denom);
     }
 
     /**
@@ -98,7 +107,16 @@ public class FractionImpl implements Fraction {
      */
     @Override
     public Fraction subtract(Fraction f) {
-        return ((this.numerator * f.denominator) - (this.denominator * f.numerator)) / (this.denominator * f.denominator);
+        // TODO: CHECK THE CALCULATIONS AND USING VARIABLES IN CORRECT PLACES
+//        a = this.numerator;
+//        b = this.denominator;
+//        c = f.numerator;
+//        d = f.denominator;
+//        return (ad - bc)/bd;
+        FractionImpl frac = (FractionImpl) f;
+        int num = (this.numerator * frac.denominator) - (this.denominator * frac.numerator);
+        int denom = this.denominator * frac.denominator;
+        return new FractionImpl(num, denom);
     }
 
     /**
@@ -106,7 +124,16 @@ public class FractionImpl implements Fraction {
      */
     @Override
     public Fraction multiply(Fraction f) {
-        return (this.numerator * f.numerator) / (this.denominator * f.denominator);
+        // TODO: CHECK THE CALCULATIONS AND USING VARIABLES IN CORRECT PLACES
+//        a = this.numerator;
+//        b = this.denominator;
+//        c = f.numerator;
+//        d = f.denominator;
+//        return (a*c)/(b*d);
+        FractionImpl frac = (FractionImpl) f;
+        int num = this.numerator * frac.numerator;
+        int denom = this.denominator * frac.denominator;
+        return new FractionImpl(num, denom);
     }
 
     /**
@@ -114,7 +141,16 @@ public class FractionImpl implements Fraction {
      */
     @Override
     public Fraction divide(Fraction f) {
-        return (this.numerator * f.denominator) / (this.denominator * f.numerator);
+        // TODO: CHECK THE CALCULATIONS AND USING VARIABLES IN CORRECT PLACES
+//        a = this.numerator;
+//        b = this.denominator;
+//        c = f.numerator;
+//        d = f.denominator;
+//        return (a*d)/(b*c);
+        FractionImpl frac = (FractionImpl) f;
+        int num = this.numerator * frac.denominator;
+        int denom = this.denominator * frac.numerator;
+        return new FractionImpl(num, denom);
     }
 
     /**
