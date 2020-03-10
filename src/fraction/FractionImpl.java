@@ -90,7 +90,7 @@ public class FractionImpl implements Fraction {
      */
     @Override
     public Fraction add(Fraction f) {
-        return null;
+        return ((this.numerator * f.denominator) + (this.denominator * f.numerator)) / (this.denominator * f.denominator);
     }
 
     /**
@@ -98,7 +98,7 @@ public class FractionImpl implements Fraction {
      */
     @Override
     public Fraction subtract(Fraction f) {
-        return null;
+        return ((this.numerator * f.denominator) - (this.denominator * f.numerator)) / (this.denominator * f.denominator);
     }
 
     /**
@@ -106,7 +106,7 @@ public class FractionImpl implements Fraction {
      */
     @Override
     public Fraction multiply(Fraction f) {
-        return null;
+        return (this.numerator * f.numerator) / (this.denominator * f.denominator);
     }
 
     /**
@@ -114,7 +114,7 @@ public class FractionImpl implements Fraction {
      */
     @Override
     public Fraction divide(Fraction f) {
-        return null;
+        return (this.numerator * f.denominator) / (this.denominator * f.numerator);
     }
 
     /**
