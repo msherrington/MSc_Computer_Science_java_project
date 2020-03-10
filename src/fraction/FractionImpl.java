@@ -68,11 +68,16 @@ public class FractionImpl implements Fraction {
         }
     }
 
-    public void normalise(int n, int d) {
+    public void normalise(int num, int denom) {
         // TODO: throw ArithmeticException if denominator zero or less
-        int gcd = greatestCommonDivisor(n, d);
-        this.numerator = n / gcd;
-        this.denominator = d / gcd;
+        if (num == 0) {
+            numerator = num;
+            denominator = 1;
+        } else {
+            int gcd = greatestCommonDivisor(num, denom);
+            numerator = num / gcd;
+            denominator = denom / gcd;
+        }
     }
 
     private static int greatestCommonDivisor(int n, int d) {
