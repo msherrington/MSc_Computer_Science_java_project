@@ -55,14 +55,14 @@ public class FractionImpl implements Fraction {
                     System.out.println("Cannot parse " + array[i]);
                 }
             }
-            int n = ints[0];
-            int d = 1;
+            int num = ints[0];
+            int denom = 1;
             try {
-                d = ints[1];
+                denom = ints[1];
             } catch (ArrayIndexOutOfBoundsException e) {
                 // TODO: suppress or ignore the exception
             }
-            normalise(n, d);
+            normalise(num, denom);
         } else {
             System.out.println("error:" + array.length); // TODO: throw error properly
         }
@@ -80,9 +80,9 @@ public class FractionImpl implements Fraction {
         }
     }
 
-    private static int greatestCommonDivisor(int n, int d) {
-        if (d == 0) return n;
-        return greatestCommonDivisor(d,n % d);
+    private static int greatestCommonDivisor(int num, int denom) {
+        if (denom == 0) return num;
+        return greatestCommonDivisor(denom,num % denom);
     }
 
     /**
