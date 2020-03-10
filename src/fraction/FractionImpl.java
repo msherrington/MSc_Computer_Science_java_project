@@ -69,14 +69,14 @@ public class FractionImpl implements Fraction {
     }
 
     public void normalise(int num, int denom) {
-        // TODO: throw ArithmeticException if denominator zero or less
-        if (num == 0) {
-            this.numerator = num;
-            this.denominator = 1;
+        if (denom == 0) {
+            System.out.println("ArithmeticException, denom cannot be zero");
+//            throw new ArithmeticException("Divide by zero");
         } else {
             int gcd = greatestCommonDivisor(num, denom);
             this.numerator = num / gcd;
             this.denominator = denom / gcd;
+//            System.out.printf("%s/%s\n", this.numerator, this.denominator);
         }
     }
 
