@@ -158,7 +158,7 @@ public class FractionImpl implements Fraction {
      */
     @Override
     public Fraction abs() {
-        return null;
+        return new FractionImpl(Math.abs(this.numerator), this.denominator);
     }
 
     /**
@@ -166,7 +166,7 @@ public class FractionImpl implements Fraction {
      */
     @Override
     public Fraction negate() {
-        return null;
+        return new FractionImpl(this.numerator * -1, this.denominator * -1);
     }
 
     /**
@@ -182,7 +182,12 @@ public class FractionImpl implements Fraction {
      */
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj);
+        if (obj instanceof Fraction) {
+            FractionImpl f = (FractionImpl) obj;
+            return this.numerator == f.numerator && this.denominator == f.denominator;
+        }
+        return false;
+        // TODO throw error for wrong class type (try/catch?)
     }
 
     /**
@@ -198,7 +203,7 @@ public class FractionImpl implements Fraction {
      */
     @Override
     public Fraction inverse() {
-        return null;
+        return new FractionImpl(this.denominator, this.numerator);
     }
 
     /**
@@ -206,7 +211,10 @@ public class FractionImpl implements Fraction {
      */
     @Override
     public int compareTo(Fraction o) {
-        return 0;
+        FractionImpl f = (FractionImpl) o;
+        double thisFrac = this.numerator / (double) this.denominator;
+        double otherFrac = f.numerator / (double) f.denominator;
+        return Integer.compare(Double.compare(thisFrac, otherFrac), 0);
     }
 
     /**
@@ -214,6 +222,9 @@ public class FractionImpl implements Fraction {
      */
     @Override
     public String toString() {
-        return null;
+        if (this.denominator == 1) {
+            return this.numerator + "";
+        }
+        return this.numerator + "/" + this.denominator;
     }
 }
