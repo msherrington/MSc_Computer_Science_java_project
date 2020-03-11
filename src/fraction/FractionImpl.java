@@ -218,8 +218,8 @@ public class FractionImpl implements Fraction {
     @Override
     public String toString() {
         if (this.denominator == 1) {
-            return this.numerator + "";
+            return String.valueOf(this.numerator);
         }
-        return this.numerator + "/" + this.denominator;
+        return String.format("%s/%s", this.numerator, this.denominator);
     }
 }
