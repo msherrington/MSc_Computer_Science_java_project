@@ -48,24 +48,13 @@ public class FractionImpl implements Fraction {
         } else {
             String[] array = fraction.split("/");
             if (array.length < 3) {
-                int[] ints = new int[array.length];
-                for (int i = 0; i < array.length; i++) {
-                    try {
-                        ints[i] = Integer.parseInt(array[i]);
-                    } catch (NumberFormatException e) {
-                        // TODO: throw e exception properly here
-                        System.out.println("Cannot parse " + array[i]);
-                    }
-                }
-                int num = ints[0];
-                int denom = 1;
+                int num = Integer.parseInt(array[0]);
                 try {
-                    denom = ints[1];
+                    normalise(num, Integer.parseInt(array[1]));
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("index error");
-                    // TODO: suppress or ignore the exception
+                    normalise(num, 1);
                 }
-                normalise(num, denom);
                 System.out.printf("%s/%s\n", this.numerator, this.denominator);
             } else {
                 System.out.print("too many slashes");
