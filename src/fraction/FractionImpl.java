@@ -43,22 +43,21 @@ public class FractionImpl implements Fraction {
     public FractionImpl(String fraction) {
         fraction = fraction.replace(" ", "");
         if (fraction.equals("")) {
-            System.out.println("No array");
-            // TODO: throw error properly here
+            // TODO: throw NoSuchElementException here
         } else {
             String[] array = fraction.split("/");
             if (array.length < 3) {
                 int num = Integer.parseInt(array[0]);
+                int denom = 0;
                 try {
-                    normalise(num, Integer.parseInt(array[1]));
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("index error");
-                    normalise(num, 1);
+                    denom = Integer.parseInt(array[1]);
+                } catch (ArrayIndexOutOfBoundsException indexError) {
+                    denom = 1;
+                } finally {
+                    normalise(num, denom);
                 }
-                System.out.printf("%s/%s\n", this.numerator, this.denominator);
             } else {
-                System.out.print("too many slashes");
-                // TODO: handle this error properly
+                // TODO: throw InputMismatchException here
             }
         }
     }
