@@ -1,5 +1,4 @@
 package fraction;
-
 import java.util.*;
 
 public class FractionImpl implements Fraction {
@@ -45,38 +44,36 @@ public class FractionImpl implements Fraction {
      * @param fraction the string representation of the fraction
      */
     public FractionImpl(String fraction) {
-        fraction = fraction.replace(" ", "");
-        if (fraction.length() == 0) {
+        if (fraction.trim().length() == 0) {
             throw new NoSuchElementException("Empty string");
         } else {
             String[] array = fraction.split("/");
-            if (array.length <= 2) {
-                if (fraction.contains(".")) {
-                    throw new NumberFormatException("String must not contain decimals");
-                } else {
-                    int num;
-                    try {
-                        num = Integer.parseInt(array[0]);
-                    } catch (NumberFormatException alphaNumerator) {
-                        throw new NumberFormatException("Fraction value must be numeric: " + array[0]);
-                    }
-
-                    boolean proceed = true;
-                    int denom = 0;
-                    try {
-                        denom = Integer.parseInt(array[1]);
-                    } catch (ArrayIndexOutOfBoundsException indexError) {
-                        denom = 1;
-                    } catch (NumberFormatException alphaDenominator) {
-                        proceed = false;
-                        throw new NumberFormatException("Fraction value must be numeric: " + array[1]);
-                    } finally {
-                        if (proceed) normalise(num, denom);
-                    }
-                    System.out.printf("%s/%s\n", this.numerator, this.denominator);
-                }
-            } else {
+            if (array.length > 2) {
                 throw new InputMismatchException("Too many fraction elements");
+            } else {
+                String intErrorMsg = "Fraction value must be an integer: ";
+                String numString = array[0];
+                String denomString = array[1];
+
+                int num;
+                try {
+                    num = Integer.parseInt(numString.trim());
+                } catch (NumberFormatException numeratorError) {
+                    throw new NumberFormatException(intErrorMsg + numString);
+                }
+
+                boolean proceed = true;
+                int denom = 0;
+                try {
+                    denom = Integer.parseInt(denomString.trim());
+                } catch (ArrayIndexOutOfBoundsException indexError) {
+                    denom = 1;
+                } catch (NumberFormatException denominatorError) {
+                    proceed = false;
+                    throw new NumberFormatException(intErrorMsg + denomString);
+                } finally {
+                    if (proceed) normalise(num, denom);
+                }
             }
         }
     }
@@ -91,7 +88,6 @@ public class FractionImpl implements Fraction {
             boolean negate = denom < 0 && num >= 0;
             this.numerator = negate ? num * -1 : num;
             this.denominator = negate ? denom * -1 : denom;
-//            System.out.printf("%s/%s\n", this.numerator, this.denominator);
         }
     }
 
