@@ -2,6 +2,8 @@ package fraction;
 
 public class FractionImpl implements Fraction {
 
+//    TODO: comments, tests, check calculations, error handling
+
     private int numerator;
     private int denominator;
 
@@ -182,7 +184,6 @@ public class FractionImpl implements Fraction {
             return this.numerator == f.numerator && this.denominator == f.denominator;
         }
         return false;
-        // TODO throw error for wrong class type (try/catch?)
     }
 
     /**
