@@ -3,7 +3,7 @@ import java.util.*;
 
 public class FractionImpl implements Fraction {
 
-//    TODO: comments, tests, check calculations, error handling, int overflow, read Java textbook
+//    TODO: check comments, tests (including division by zero), int overflow (read Java textbook)
 
     private int numerator;
     private int denominator;
@@ -76,19 +76,41 @@ public class FractionImpl implements Fraction {
         }
     }
 
+    /**
+     * HELPER METHOD
+     * Both params passed to greatestCommonDivisor() method for a gcd value
+     * which is used to divide the params and put the fraction values in their lowest terms.
+     *
+     * If denom is zero, an <pre>ArithmeticException</pre> error is thrown.
+     * If denom is negative and num is positive, both integers are negated.
+     *
+     * Finally mutated params are set to the instance variables.
+     *
+     * @param num integer, the numerator to normalise
+     * @param denom integer, the denominator to normalise
+     */
     public void normalise(int num, int denom) {
-        if (denom == 0) {
-            throw new ArithmeticException("Denominator cannot be zero");
-        } else {
+        if (denom != 0) {
             int gcd = greatestCommonDivisor(num, denom);
             num /= gcd;
             denom /= gcd;
             boolean negate = denom < 0 && num >= 0;
             this.numerator = negate ? num * -1 : num;
             this.denominator = negate ? denom * -1 : denom;
+        } else {
+            throw new ArithmeticException("Denominator cannot be zero");
         }
     }
 
+    /**
+     * HELPER METHOD
+     * Recursive method using Euclid's' algorithm.
+     * Returns the greatest common denominator of any 2 integers.
+     *
+     * @param num integer, the pre-normalised numerator
+     * @param denom integer, the pre-normalised denominator
+     * @return integer
+     */
     private static int greatestCommonDivisor(int num, int denom) {
         if (denom == 0) return num;
         return greatestCommonDivisor(denom,num % denom);
@@ -143,6 +165,7 @@ public class FractionImpl implements Fraction {
      */
     @Override
     public Fraction abs() {
+        // create and return a new Fraction using numerator's absolute value
         return new FractionImpl(Math.abs(this.numerator), this.denominator);
     }
 
@@ -151,6 +174,7 @@ public class FractionImpl implements Fraction {
      */
     @Override
     public Fraction negate() {
+        // create and return a new Fraction with numerator negated
         return new FractionImpl(this.numerator * -1, this.denominator);
     }
 
@@ -168,8 +192,10 @@ public class FractionImpl implements Fraction {
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Fraction) {
+            // if obj is of class Fraction, obtain object instance
             FractionImpl f = (FractionImpl) obj;
-            return this.numerator == f.numerator && this.denominator == f.denominator;
+            // return a boolean based on Fraction objects being equal
+            return super.equals(f);
         }
         return false;
     }
@@ -187,6 +213,7 @@ public class FractionImpl implements Fraction {
      */
     @Override
     public Fraction inverse() {
+        // create and return a new Fraction with numerator and denominator swapped
         return new FractionImpl(this.denominator, this.numerator);
     }
 
@@ -195,10 +222,13 @@ public class FractionImpl implements Fraction {
      */
     @Override
     public int compareTo(Fraction o) {
+        // assign fraction to variable
         FractionImpl f = (FractionImpl) o;
+        // convert both fraction values into doubles
         double thisFrac = this.numerator / (double) this.denominator;
         double otherFrac = f.numerator / (double) f.denominator;
-        return Integer.compare(Double.compare(thisFrac, otherFrac), 0);
+        // use Double compare to return an integer
+        return Double.compare(thisFrac, otherFrac);
     }
 
     /**
