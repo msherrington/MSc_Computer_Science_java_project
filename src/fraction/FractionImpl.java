@@ -52,25 +52,23 @@ public class FractionImpl implements Fraction {
                 throw new InputMismatchException("Too many fraction elements");
             } else {
                 String intErrorMsg = "Fraction value must be an integer: ";
-                String numString = array[0];
-                String denomString = array[1];
 
                 int num;
                 try {
-                    num = Integer.parseInt(numString.trim());
+                    num = Integer.parseInt(array[0].trim());
                 } catch (NumberFormatException numeratorError) {
-                    throw new NumberFormatException(intErrorMsg + numString);
+                    throw new NumberFormatException(intErrorMsg + array[0]);
                 }
 
                 boolean proceed = true;
                 int denom = 0;
                 try {
-                    denom = Integer.parseInt(denomString.trim());
+                    denom = Integer.parseInt(array[1].trim());
                 } catch (ArrayIndexOutOfBoundsException indexError) {
                     denom = 1;
                 } catch (NumberFormatException denominatorError) {
                     proceed = false;
-                    throw new NumberFormatException(intErrorMsg + denomString);
+                    throw new NumberFormatException(intErrorMsg + array[1]);
                 } finally {
                     if (proceed) normalise(num, denom);
                 }
@@ -101,12 +99,6 @@ public class FractionImpl implements Fraction {
      */
     @Override
     public Fraction add(Fraction f) {
-        // TODO: CHECK THE CALCULATIONS AND USING VARIABLES IN CORRECT PLACES
-//        a = this.numerator;
-//        b = this.denominator;
-//        c = f.numerator;
-//        d = f.denominator;
-//        return (ad + bc)/bd
         FractionImpl frac = (FractionImpl) f;
         int num = (this.numerator * frac.denominator) + (this.denominator * frac.numerator);
         int denom = this.denominator * frac.denominator;
@@ -118,12 +110,6 @@ public class FractionImpl implements Fraction {
      */
     @Override
     public Fraction subtract(Fraction f) {
-        // TODO: CHECK THE CALCULATIONS AND USING VARIABLES IN CORRECT PLACES
-//        a = this.numerator;
-//        b = this.denominator;
-//        c = f.numerator;
-//        d = f.denominator;
-//        return (ad - bc)/bd;
         FractionImpl frac = (FractionImpl) f;
         int num = (this.numerator * frac.denominator) - (this.denominator * frac.numerator);
         int denom = this.denominator * frac.denominator;
@@ -135,12 +121,6 @@ public class FractionImpl implements Fraction {
      */
     @Override
     public Fraction multiply(Fraction f) {
-        // TODO: CHECK THE CALCULATIONS AND USING VARIABLES IN CORRECT PLACES
-//        a = this.numerator;
-//        b = this.denominator;
-//        c = f.numerator;
-//        d = f.denominator;
-//        return (a*c)/(b*d);
         FractionImpl frac = (FractionImpl) f;
         int num = this.numerator * frac.numerator;
         int denom = this.denominator * frac.denominator;
@@ -152,12 +132,6 @@ public class FractionImpl implements Fraction {
      */
     @Override
     public Fraction divide(Fraction f) {
-        // TODO: CHECK THE CALCULATIONS AND USING VARIABLES IN CORRECT PLACES
-//        a = this.numerator;
-//        b = this.denominator;
-//        c = f.numerator;
-//        d = f.denominator;
-//        return (a*d)/(b*c);
         FractionImpl frac = (FractionImpl) f;
         int num = this.numerator * frac.denominator;
         int denom = this.denominator * frac.numerator;
@@ -177,7 +151,7 @@ public class FractionImpl implements Fraction {
      */
     @Override
     public Fraction negate() {
-        return new FractionImpl(this.numerator * -1, this.denominator * -1);
+        return new FractionImpl(this.numerator * -1, this.denominator);
     }
 
     /**
