@@ -5,8 +5,8 @@ public class FractionImpl implements Fraction {
 
 //    TODO: check comments, tests (including division by zero), int overflow (read Java textbook)
 
-    private int numerator;
-    private int denominator;
+    int numerator;
+    int denominator;
 
     /**
      * Parameters are the <em>numerator</em> and the <em>denominator</em>.
@@ -33,46 +33,57 @@ public class FractionImpl implements Fraction {
     }
 
     /**
-     * The parameter is a <pre>String</pre> containing either a whole number, such as `5` or `-3`, or a fraction,
-     * such as "8/-12".
-     * Allow blanks around (but not within) integers.
-     * The constructor should throw an <pre>ArithmeticException</pre>
-     * if given a string representing a fraction whose denominator is zero.
-     * <p>
-     * You may find it helpful to look at the available String API methods in the Java API.
+     * The parameter is a <pre>String</pre> containing either a whole number, or a fraction,
+     * A <pre>NoSuchElementException</pre> error is thrown if the string is empty.
+     * A <pre>InputMismatchException</pre> error is thrown if more than 2 fraction values are passed in.
+     *
+     * Each value (whether 1 or 2) is parsed to integers by stringToInt() method.
+     * Then passed to normalise() method for normalisation and setting of instance variables.
      *
      * @param fraction the string representation of the fraction
      */
     public FractionImpl(String fraction) {
         if (fraction.trim().length() == 0) {
+            // throw error if trimmed string is empty
             throw new NoSuchElementException("Empty string");
         } else {
+            // create string array of fraction values
             String[] array = fraction.split("/");
-            if (array.length > 2) {
-                throw new InputMismatchException("Too many fraction elements");
-            } else {
-                String intErrorMsg = "Fraction value must be a valid non-decimal number: \"";
 
-                int num;
-                try {
-                    num = Integer.parseInt(array[0].trim());
-                } catch (NumberFormatException numeratorError) {
-                    throw new NumberFormatException(intErrorMsg + array[0] + "\"");
-                }
-
-                boolean proceed = true;
-                int denom = 0;
-                try {
-                    denom = Integer.parseInt(array[1].trim());
-                } catch (ArrayIndexOutOfBoundsException indexError) {
+            // parse array strings to integers
+            if (array.length <= 2) {
+                int num = stringToInt(array[0]);
+                int denom;
+                if (array.length == 2) {
+                    denom = stringToInt(array[1]);
+                } else {
                     denom = 1;
-                } catch (NumberFormatException denominatorError) {
-                    proceed = false;
-                    throw new NumberFormatException(intErrorMsg + array[1] + "\"");
-                } finally {
-                    if (proceed) normalise(num, denom);
                 }
+                // normalise integers and set as instance variables
+                normalise(num, denom);
+            } else {
+                // throw error if too many fraction values in fraction string
+                throw new InputMismatchException("Too many fraction elements");
             }
+        }
+    }
+
+    /**
+     * HELPER METHOD
+     * The parameter is a <pre>String</pre> containing a whole number.
+     * Surrounding whitespace is allowed and will be trimmed.
+     *
+     * A <pre>NumberFormatException</pre> error is thrown for non-numeric strings
+     * (including decimals, alphabetic letters, spaces between digits, etc).
+     *
+     * @param string string, a fraction value
+     * @return int, the string parameter parsed
+     */
+    public static Integer stringToInt(String string) {
+        try {
+            return Integer.parseInt(string.trim());
+        } catch (NumberFormatException numeratorError) {
+            throw new NumberFormatException("Fraction value must be a valid non-decimal number: \"" + string + "\"");
         }
     }
 
