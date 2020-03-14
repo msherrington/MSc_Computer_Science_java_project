@@ -51,13 +51,13 @@ public class FractionImpl implements Fraction {
             if (array.length > 2) {
                 throw new InputMismatchException("Too many fraction elements");
             } else {
-                String intErrorMsg = "Fraction value must be an integer: ";
+                String intErrorMsg = "Fraction value must be a valid non-decimal number: \"";
 
                 int num;
                 try {
                     num = Integer.parseInt(array[0].trim());
                 } catch (NumberFormatException numeratorError) {
-                    throw new NumberFormatException(intErrorMsg + array[0]);
+                    throw new NumberFormatException(intErrorMsg + array[0] + "\"");
                 }
 
                 boolean proceed = true;
@@ -68,7 +68,7 @@ public class FractionImpl implements Fraction {
                     denom = 1;
                 } catch (NumberFormatException denominatorError) {
                     proceed = false;
-                    throw new NumberFormatException(intErrorMsg + array[1]);
+                    throw new NumberFormatException(intErrorMsg + array[1] + "\"");
                 } finally {
                     if (proceed) normalise(num, denom);
                 }
