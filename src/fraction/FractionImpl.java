@@ -80,7 +80,7 @@ public class FractionImpl implements Fraction {
      * @param string string, a fraction value
      * @return int, the string parameter parsed
      */
-    public static Integer stringToInt(String string) {
+    static Integer stringToInt(String string) {
         try {
             return Integer.parseInt(string.trim());
         } catch (NumberFormatException numeratorError) {
@@ -101,7 +101,7 @@ public class FractionImpl implements Fraction {
      * @param num integer, the numerator to normalise
      * @param denom integer, the denominator to normalise
      */
-    public void normalise(int num, int denom) {
+    void normalise(int num, int denom) {
         if (denom != 0) {
             int gcd = greatestCommonDivisor(num, denom);
             num /= gcd;
@@ -123,7 +123,7 @@ public class FractionImpl implements Fraction {
      * @param denom integer, the pre-normalised denominator
      * @return integer
      */
-    private static int greatestCommonDivisor(int num, int denom) {
+    int greatestCommonDivisor(int num, int denom) {
         if (denom == 0) return num;
         return greatestCommonDivisor(denom,num % denom);
     }
@@ -260,7 +260,7 @@ public class FractionImpl implements Fraction {
      */
     @Override
     public String toString() {
-        if (this.denominator == 1) {
+        if (this.denominator == 1 && this.numerator != 0) {
             return String.valueOf(this.numerator);
         }
         return String.format("%s/%s", this.numerator, this.denominator);
