@@ -54,6 +54,7 @@ public class FractionImpl implements Fraction {
             if (array.length <= 2) {
                 int num = stringToInt(array[0]);
                 int denom;
+
                 if (array.length == 2) {
                     denom = stringToInt(array[1]);
                 } else {
@@ -132,9 +133,12 @@ public class FractionImpl implements Fraction {
      */
     @Override
     public Fraction add(Fraction f) {
+        // initialise object variable
         FractionImpl frac = (FractionImpl) f;
+        // calculate new numerator and denominator
         int num = (this.numerator * frac.denominator) + (this.denominator * frac.numerator);
         int denom = this.denominator * frac.denominator;
+        // create and return a new Fraction using calculated integers
         return new FractionImpl(num, denom);
     }
 
@@ -143,9 +147,12 @@ public class FractionImpl implements Fraction {
      */
     @Override
     public Fraction subtract(Fraction f) {
+        // initialise object variable
         FractionImpl frac = (FractionImpl) f;
+        // calculate new numerator and denominator
         int num = (this.numerator * frac.denominator) - (this.denominator * frac.numerator);
         int denom = this.denominator * frac.denominator;
+        // create and return a new Fraction using calculated integers
         return new FractionImpl(num, denom);
     }
 
@@ -154,9 +161,12 @@ public class FractionImpl implements Fraction {
      */
     @Override
     public Fraction multiply(Fraction f) {
+        // initialise object variable
         FractionImpl frac = (FractionImpl) f;
+        // calculate new numerator and denominator
         int num = this.numerator * frac.numerator;
         int denom = this.denominator * frac.denominator;
+        // create and return a new Fraction using calculated integers
         return new FractionImpl(num, denom);
     }
 
@@ -165,9 +175,12 @@ public class FractionImpl implements Fraction {
      */
     @Override
     public Fraction divide(Fraction f) {
+        // initialise object variable
         FractionImpl frac = (FractionImpl) f;
+        // calculate new numerator and denominator
         int num = this.numerator * frac.denominator;
         int denom = this.denominator * frac.numerator;
+        // create and return a new Fraction using calculated integers
         return new FractionImpl(num, denom);
     }
 
@@ -203,9 +216,9 @@ public class FractionImpl implements Fraction {
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Fraction) {
-            // if obj is of class Fraction, obtain object instance
+            // if obj is of class Fraction, initialise object variable
             FractionImpl f = (FractionImpl) obj;
-            // return a boolean based on Fraction objects being equal
+            // return a boolean based on Fractions having equal instance variables
             return super.equals(f);
         }
         return false;
@@ -233,9 +246,9 @@ public class FractionImpl implements Fraction {
      */
     @Override
     public int compareTo(Fraction o) {
-        // assign fraction to variable
+        // initialise object variable
         FractionImpl f = (FractionImpl) o;
-        // convert both fraction values into doubles
+        // cast fractions into doubles
         double thisFrac = this.numerator / (double) this.denominator;
         double otherFrac = f.numerator / (double) f.denominator;
         // use Double compare to return an integer
