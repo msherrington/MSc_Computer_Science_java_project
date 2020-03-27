@@ -219,7 +219,7 @@ public class FractionImpl implements Fraction {
             // if obj is of class Fraction, initialise object variable
             FractionImpl f = (FractionImpl) obj;
             // return a boolean based on Fractions having equal instance variables
-            return super.equals(f);
+            return this.numerator == f.numerator && this.denominator == f.denominator;
         }
         return false;
     }
