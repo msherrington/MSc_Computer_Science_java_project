@@ -34,38 +34,33 @@ public class FractionImpl implements Fraction {
 
     /**
      * The parameter is a <pre>String</pre> containing either a whole number, or a fraction,
-     * A <pre>NoSuchElementException</pre> error is thrown if the string is empty.
-     * A <pre>InputMismatchException</pre> error is thrown if more than 2 fraction values are passed in.
-     *
      * Each value (whether 1 or 2) is parsed to integers by stringToInt() method.
      * Then passed to normalise() method for normalisation and setting of instance variables.
+     *
+     * A <pre>InputMismatchException</pre> error is thrown if more than 2 fraction values are passed in.
+     * A <pre>NoSuchElementException</pre> error is thrown if the string is empty.
      *
      * @param fraction the string representation of the fraction
      */
     public FractionImpl(String fraction) {
-        if (fraction.trim().length() == 0) {
-            // throw error if trimmed string is empty
-            throw new NoSuchElementException("Empty string");
-        } else {
+        if (fraction.trim().length() != 0) {
             // create string array of fraction values
             String[] array = fraction.split("/");
 
-            // parse array strings to integers
             if (array.length <= 2) {
+                // parse array strings to integers
                 int num = stringToInt(array[0]);
-                int denom;
+                int denom = array.length == 2 ? stringToInt(array[1]) : 1;
 
-                if (array.length == 2) {
-                    denom = stringToInt(array[1]);
-                } else {
-                    denom = 1;
-                }
                 // normalise integers and set as instance variables
                 normalise(num, denom);
             } else {
                 // throw error if too many fraction values in fraction string
                 throw new InputMismatchException("Too many fraction elements");
             }
+        } else {
+            // throw error if trimmed string is empty
+            throw new NoSuchElementException("Empty string");
         }
     }
 
