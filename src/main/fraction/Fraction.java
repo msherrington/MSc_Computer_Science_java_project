@@ -1,4 +1,4 @@
-package fraction;
+package main.fraction;
 
 /**
  * Representing fractions of the form numerator and denominator

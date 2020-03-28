@@ -1,7 +1,10 @@
-package fraction;
+package main.fraction;
 
 import org.junit.jupiter.api.*;
+import main.pair.Pair;
 
+import static main.fraction.FractionImpl.normalise;
+import static main.fraction.FractionImpl.stringToInt;
 import static org.junit.jupiter.api.Assertions.*;
 
 class FractionImplTest {
@@ -34,37 +37,37 @@ class FractionImplTest {
     @Test
     void testStringToInt() {
         // assert string is trimmed and parsed as integer
-        assertEquals(1, FractionImpl.stringToInt("    1    "));
+        assertEquals(1, stringToInt("    1    "));
 
         // assert error is thrown when string contains whitespace, decimals or letters
         String[] testValues = {"1  1", "1.0", "abc"};
         for (String value: testValues) {
             assertThrows(NumberFormatException.class, () -> {
-                FractionImpl.stringToInt(value);
+                stringToInt(value);
             });
         }
     }
 
     @Test
     void testNormalise() {
-        // assert fraction is normalised to it's lowest terms
-        Pair normalised = FractionImpl.normalise(10,15);
+        // assert main.fraction is normalised to it's lowest terms
+        Pair normalised = normalise(10,15);
         assertEquals(normalised.first(), 2);
         assertEquals(normalised.second(), 3);
 
         // assert correct format for one negative value
-        normalised = FractionImpl.normalise(2,-3);
+        normalised = normalise(2,-3);
         assertEquals(normalised.first(), -2);
         assertEquals(normalised.second(), 3);
 
         // assert correct format for two negative values
-        normalised = FractionImpl.normalise(-1,-3);
+        normalised = normalise(-1,-3);
         assertEquals(normalised.first(), 1);
         assertEquals(normalised.second(), 3);
 
         // assert error is thrown when passing in denominator of zero
         assertThrows(ArithmeticException.class, () -> {
-            FractionImpl.normalise(1, 0);
+            normalise(1, 0);
         });
     }
 
@@ -73,7 +76,7 @@ class FractionImplTest {
         // assert addition for positive fractions
         assertEquals(oneQuarter.add(oneQuarter).toString(), half.toString());
 
-        // assert addition when one fraction is negative
+        // assert addition when one main.fraction is negative
         assertEquals(one.add(minusOne).toString(), zero.toString());
 
         // assert addition when both fractions are negative
@@ -85,7 +88,7 @@ class FractionImplTest {
         // assert subtraction for positive fractions
         assertEquals(half.subtract(oneQuarter).toString(), oneQuarter.toString());
 
-        // assert subtraction when one fraction is negative
+        // assert subtraction when one main.fraction is negative
         assertEquals(one.subtract(minusOne).toString(), two.toString());
 
         // assert subtraction when both fractions are negative
@@ -97,7 +100,7 @@ class FractionImplTest {
         // assert multiplication for positive fractions
         assertEquals(half.multiply(half).toString(), oneQuarter.toString());
 
-        // assert multiplication when one fraction is negative
+        // assert multiplication when one main.fraction is negative
         assertEquals(one.multiply(minusOne).toString(), minusOne.toString());
 
         // assert multiplication when both fractions are negative
@@ -109,7 +112,7 @@ class FractionImplTest {
         // assert division for positive fractions
         assertEquals(half.divide(half).toString(), one.toString());
 
-        // assert division when one fraction is negative
+        // assert division when one main.fraction is negative
         assertEquals(one.divide(minusOne).toString(), minusOne.toString());
 
         // assert division when both fractions are negative
@@ -118,19 +121,19 @@ class FractionImplTest {
 
     @Test
     void testAbs() {
-        // assert absolute value for a positive fraction
+        // assert absolute value for a positive main.fraction
         assertEquals(one.abs().toString(), one.toString());
 
-        // assert absolute value for a negative fraction
+        // assert absolute value for a negative main.fraction
         assertEquals(minusOne.abs().toString(), one.toString());
     }
 
     @Test
     void testNegate() {
-        // assert negation of a positive fraction
+        // assert negation of a positive main.fraction
         assertEquals(one.negate().toString(), minusOne.toString());
 
-        // assert negation of a negative fraction
+        // assert negation of a negative main.fraction
         assertEquals(minusOne.negate().toString(), one.toString());
     }
 

@@ -1,4 +1,4 @@
-package fraction;
+package main.pair;
 
 public class Pair {
     private int first;

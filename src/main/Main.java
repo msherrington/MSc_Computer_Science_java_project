@@ -1,4 +1,8 @@
-package fraction;
+package main;
+
+import main.fraction.Fraction;
+import main.fraction.FractionImpl;
+
 import java.util.Random;
 
 

@@ -1,4 +1,6 @@
-package fraction;
+package main.fraction;
+import main.pair.Pair;
+
 import java.util.*;
 
 public class FractionImpl implements Fraction {
@@ -6,6 +8,7 @@ public class FractionImpl implements Fraction {
 //    TODO: re-check comments (params, returns, etc),
 //    tests (including division by zero),
 //    int overflow (read Java textbook)
+    // check method names have not changed
 
 
     private int numerator;
@@ -112,7 +115,7 @@ public class FractionImpl implements Fraction {
      *
      * @param num integer, the numerator to normalise
      * @param denom integer, the denominator to normalise
-     * @return Normalised instance
+     * @return Pair instance containing normalised values
      */
     static Pair normalise(int num, int denom) {
         if (denom != 0) {
