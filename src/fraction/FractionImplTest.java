@@ -46,7 +46,7 @@ class FractionImplTest {
         assertEquals(1, FractionImpl.stringToInt("    1    "));
 
         assertThrows(ArithmeticException.class, () -> {
-            FractionImpl.normalise(value);
+            one.normalise(1, 0);
         });
     }
 

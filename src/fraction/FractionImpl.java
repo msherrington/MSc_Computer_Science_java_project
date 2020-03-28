@@ -101,9 +101,12 @@ public class FractionImpl implements Fraction {
             int gcd = greatestCommonDivisor(num, denom);
             num /= gcd;
             denom /= gcd;
-            boolean negate = denom < 0 && num >= 0;
-            this.numerator = negate ? num * -1 : num;
-            this.denominator = negate ? denom * -1 : denom;
+            if (denom < 0 && num >= 0) {
+                num *= -1;
+                denom *= -1;
+            }
+            this.numerator = num;
+            this.denominator = denom;
         } else {
             throw new ArithmeticException("Denominator cannot be zero");
         }
