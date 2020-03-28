@@ -5,8 +5,8 @@ public class FractionImpl implements Fraction {
 
 //    TODO: check comments, tests (including division by zero), int overflow (read Java textbook)
 
-    int numerator;
-    int denominator;
+    private int numerator;
+    private int denominator;
 
     /**
      * Parameters are the <em>numerator</em> and the <em>denominator</em>.
@@ -121,7 +121,7 @@ public class FractionImpl implements Fraction {
      * @param denom integer, the pre-normalised denominator
      * @return integer
      */
-    int greatestCommonDivisor(int num, int denom) {
+    static int greatestCommonDivisor(int num, int denom) {
         if (denom == 0) return num;
         return greatestCommonDivisor(denom,num % denom);
     }
