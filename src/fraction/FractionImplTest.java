@@ -30,7 +30,7 @@ class FractionImplTest {
     // add comments to each test ???
 
     @Test
-    void stringToInt() {
+    void testStringToInt() {
         assertEquals(1, FractionImpl.stringToInt("    1    "));
 
         String[] testValues = {"1  1", "1.0", "abc"};
@@ -42,7 +42,7 @@ class FractionImplTest {
     }
 
     @Test
-    void normalise() {
+    void testNormalise() {
         assertEquals(1, FractionImpl.stringToInt("    1    "));
 
         assertThrows(ArithmeticException.class, () -> {
@@ -51,53 +51,53 @@ class FractionImplTest {
     }
 
     @Test
-    void add() {
+    void testAdd() {
         assertEquals(oneQuarter.add(oneQuarter).toString(), half.toString());
         assertEquals(one.add(minusOne).toString(), zero.toString());
     }
 
     @Test
-    void subtract() {
+    void testSubtract() {
         assertEquals(half.subtract(oneQuarter).toString(), oneQuarter.toString());
         assertEquals(threeQuarters.subtract(oneQuarter).toString(), half.toString());
     }
 
     @Test
-    void multiply() {
+    void testMultiply() {
         assertEquals(half.multiply(half).toString(), oneQuarter.toString());
         assertEquals(one.multiply(half).toString(), half.toString());
         assertEquals(minusOne.multiply(minusOne).toString(), one.toString());
     }
 
     @Test
-    void divide() {
+    void testDivide() {
         assertEquals(half.divide(half).toString(), one.toString());
         assertEquals(oneQuarter.divide(oneQuarter).toString(), one.toString());
         assertEquals(minusOne.divide(minusOne).toString(), one.toString());
     }
 
     @Test
-    void abs() {
+    void testAbs() {
         assertEquals(minusOne.abs().toString(), one.toString());
     }
 
     @Test
-    void negate() {
+    void testNegate() {
     }
 
     @Test
-    void equals() {
+    void testEquals() {
         assertTrue(half.equals(oneQuarter.add(oneQuarter)));
         assertTrue(threeQuarters.equals(oneQuarter.add(half)));
         assertFalse(half.equals(oneQuarter));
     }
 
     @Test
-    void inverse() {
+    void testInverse() {
     }
 
     @Test
-    void compareTo() {
+    void testCompareTo() {
     }
 
     @Test
