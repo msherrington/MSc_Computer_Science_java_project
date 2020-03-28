@@ -3,10 +3,21 @@ import java.util.*;
 
 public class FractionImpl implements Fraction {
 
-//    TODO: check comments, tests (including division by zero), int overflow (read Java textbook)
+//    TODO: re-check comments (params, returns, etc),
+//    tests (including division by zero),
+//    int overflow (read Java textbook)
+
 
     private int numerator;
     private int denominator;
+
+    private void setNumerator(int num) {
+        this.numerator = num;
+    }
+
+    private void setDenominator(int denom) {
+        this.denominator = denom;
+    }
 
     /**
      * Parameters are the <em>numerator</em> and the <em>denominator</em>.
@@ -20,7 +31,9 @@ public class FractionImpl implements Fraction {
      * @param denominator:
      */
     public FractionImpl(int numerator, int denominator) {
-        normalise(numerator, denominator);
+        Pair normalised = normalise(numerator, denominator);
+        this.setNumerator(normalised.first());
+        this.setDenominator(normalised.second());
     }
 
     /**
@@ -29,7 +42,9 @@ public class FractionImpl implements Fraction {
      * @param wholeNumber representing the numerator
      */
     public FractionImpl(int wholeNumber) {
-        normalise(wholeNumber, 1);
+        Pair normalised = normalise(wholeNumber, 1);
+        this.setNumerator(normalised.first());
+        this.setDenominator(normalised.second());
     }
 
     /**
@@ -52,8 +67,10 @@ public class FractionImpl implements Fraction {
                 int num = stringToInt(array[0]);
                 int denom = array.length == 2 ? stringToInt(array[1]) : 1;
 
-                // normalise integers and set as instance variables
-                normalise(num, denom);
+                // normalise integers and set instance variables
+                Pair normalised = normalise(num, denom);
+                this.setNumerator(normalised.first());
+                this.setDenominator(normalised.second());
             } else {
                 // throw error if too many fraction values in fraction string
                 throw new InputMismatchException("Too many fraction elements");
@@ -95,8 +112,9 @@ public class FractionImpl implements Fraction {
      *
      * @param num integer, the numerator to normalise
      * @param denom integer, the denominator to normalise
+     * @return Normalised instance
      */
-    void normalise(int num, int denom) {
+    static Pair normalise(int num, int denom) {
         if (denom != 0) {
             int gcd = greatestCommonDivisor(num, denom);
             num /= gcd;
@@ -105,8 +123,7 @@ public class FractionImpl implements Fraction {
                 num *= -1;
                 denom *= -1;
             }
-            this.numerator = num;
-            this.denominator = denom;
+            return new Pair(num, denom);
         } else {
             throw new ArithmeticException("Denominator cannot be zero");
         }
