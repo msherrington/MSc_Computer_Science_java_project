@@ -1,10 +1,11 @@
 package main.fraction;
 
 import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
+import java.util.*;
 import main.pair.Pair;
 
 import static main.fraction.FractionImpl.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 class FractionImplTest {
 
@@ -38,6 +39,28 @@ class FractionImplTest {
     // think of other ways to test, outside of testing each method
 
     @Test
+    void testFormatString() {
+        // assert formatted numerator value
+        assertEquals(formatString("3/2", 'N'), 3);
+
+        // assert formatted denominator value
+        assertEquals(formatString("3/5", 'D'), 5);
+
+        // assert default denominator value
+        assertEquals(formatString("5", 'D'), 1);
+
+        // assert InputMismatchException for too many fraction values
+        assertThrows(InputMismatchException.class, () -> {
+            formatString("3/2/1", 'N');
+        });
+
+        // assert NoSuchElementException for empty string
+        assertThrows(NoSuchElementException.class, () -> {
+            formatString("", 'N');
+        });
+    }
+
+    @Test
     void testStringToInt() {
         // assert string is trimmed and parsed as integer
         assertEquals(1, stringToInt("    1    "));
@@ -67,11 +90,6 @@ class FractionImplTest {
         normalised = normalise(-1,-3);
         assertEquals(normalised.first(), 1);
         assertEquals(normalised.second(), 3);
-
-        // assert ArithmeticException for zero denominator
-        assertThrows(ArithmeticException.class, () -> {
-            normalise(1, 0);
-        });
     }
 
     @Test
@@ -239,5 +257,23 @@ class FractionImplTest {
 
         // assert zero to string
         assertEquals(zero.toString(), "0/1");
+    }
+
+    @Test
+    void testProjectRequirements() {
+        // assert zero representation
+        assertEquals(zero.toString(), "0/1");
+
+        // assert ArithmeticException for zero denominator
+        assertThrows(ArithmeticException.class, () -> {
+            new FractionImpl(1, 0);
+        });
+
+        // assert denominator always positive
+        assertEquals(new FractionImpl("1/-2").toString(), "-1/2");
+        assertEquals(new FractionImpl("-3/-4").toString(), "3/4");
+
+        // assert reduced form fraction
+        assertEquals(new FractionImpl("8/-12").toString(), "-2/3");
     }
 }
