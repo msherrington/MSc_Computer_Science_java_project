@@ -1,7 +1,9 @@
 package main.fraction;
-import main.pair.Pair;
 
 import java.util.*;
+import main.pair.Pair;
+
+
 
 public class FractionImpl implements Fraction {
 
@@ -9,79 +11,89 @@ public class FractionImpl implements Fraction {
 //    int overflow (read Java textbook)
     // check method names have not changed
 //    double check comments wording- the restructure added main.fraction and main.test all over the place
+    // readMe file
+    // import order?
 
 
-    private int numerator;
-    private int denominator;
-
-    private void setNumerator(int numerator) {
-        this.numerator = numerator;
-    }
-
-    private void setDenominator(int denominator) {
-        this.denominator = denominator;
-    }
+    private int numerator, denominator;
 
     private int getNumerator() {
-        return this.numerator;
+        return numerator;
     }
 
     private int getDenominator() {
-        return this.denominator;
+        return denominator;
     }
 
     /**
      * Parameters are the <em>numerator</em> and the <em>denominator</em>.
      *
-     * Parameters passed to normalise() method for conversion to lowest terms.
-     * Normalise() will throw an <pre>ArithmeticException</pre> if the denominator is zero.
-     * Otherwise the normalised values are set as instance variables.
+     * If denominator is zero, an <pre>ArithmeticException</pre> error is thrown.
+     * Otherwise parameters passed to normalise() method for conversion to lowest terms.
+     * Normalised values are set as instance variables.
      *
      * @param numerator: integer
      * @param denominator: integer
      */
     public FractionImpl(int numerator, int denominator) {
-        Pair normalised = normalise(numerator, denominator);
-        this.setNumerator(normalised.first());
-        this.setDenominator(normalised.second());
+        if (denominator != 0) {
+            Pair normalised = normalise(numerator, denominator);
+            this.numerator = normalised.first();
+            this.denominator = normalised.second();
+        } else {
+            throw new ArithmeticException("Denominator cannot be zero");
+        }
     }
 
     /**
-     * The parameter is the numerator and <pre>1</pre> is the implicit denominator.
+     * Parameter <em>wholeNumber</em> is an integer representing a fraction numerator, which is
+     * passed to the primary constructor along with implicit denominator integer of <pre>1</pre>.
      *
-     * @param wholeNumber representing the numerator
+     * @param wholeNumber integer representing the numerator
      */
     public FractionImpl(int wholeNumber) {
-        Pair normalised = normalise(wholeNumber, 1);
-        this.setNumerator(normalised.first());
-        this.setDenominator(normalised.second());
+        this(wholeNumber, 1);
     }
 
     /**
-     * The parameter is a <pre>String</pre> containing either a whole number, or a fraction,
-     * Each value in the string is parsed to integer by stringToInt() method.
-     * Parsed integers passed to normalise() method for conversion to lowest terms.
-     * Normalised values are set as instance variables.
-     *
-     * A <pre>InputMismatchException</pre> error is thrown if more than 2 fraction values are passed in.
-     * A <pre>NoSuchElementException</pre> error is thrown if the string is empty.
+     * The parameter is a <pre>String</pre> containing either a whole number, or a fraction.
+     * String is formatted by formatString() method and passed to the primary constructor.
      *
      * @param fraction the string representation of the fraction
      */
     public FractionImpl(String fraction) {
-        if (fraction.trim().length() != 0) {
+        this(formatString(fraction, 'N'), formatString(fraction, 'D'));
+    }
+
+    /**
+     * HELPER METHOD
+     * The parameters are a <pre>String</pre> containing either a whole number, or a fraction,
+     * and a <pre>Character</pre> identifying which value to return.
+     *
+     * Relevant fraction value is parsed to integer by stringToInt() method.
+     * If identifier is 'D' and fraction value not provided, default return value is <pre>1</pre>.
+     *
+     * A <pre>InputMismatchException</pre> error is thrown if more than 2 fraction values are passed in.
+     * A <pre>NoSuchElementException</pre> error is thrown if the string is empty.
+     *
+     * @param fraction: string, a fraction value
+     * @param identifier: character, either "N" or "D"
+     * @return integer, the relevant parsed string value
+     */
+    static int formatString(String fraction, Character identifier) {
+        if (fraction.trim().length() > 0) {
             // create string array of fraction values
             String[] array = fraction.split("/");
 
             if (array.length <= 2) {
-                // parse array strings to integers
-                int num = stringToInt(array[0]);
-                int denom = array.length == 2 ? stringToInt(array[1]) : 1;
 
-                // normalise integers and set instance variables
-                Pair normalised = normalise(num, denom);
-                this.setNumerator(normalised.first());
-                this.setDenominator(normalised.second());
+                if (identifier.equals('N')) {
+                    return stringToInt(array[0]);
+                } else {
+                    // return 1 if array[1] does not exist
+                    return array.length == 2 ? stringToInt(array[1]) : 1;
+                }
+
             } else {
                 // throw error if too many fraction values in fraction string
                 throw new InputMismatchException("Too many fraction elements");
@@ -101,7 +113,7 @@ public class FractionImpl implements Fraction {
      * (including decimals, alphabetic letters, spaces between digits, etc).
      *
      * @param string string, a fraction value
-     * @return int, the string parameter parsed
+     * @return integer, the string parameter parsed to int
      */
     static Integer stringToInt(String string) {
         try {
@@ -113,41 +125,34 @@ public class FractionImpl implements Fraction {
 
     /**
      * HELPER METHOD
-     * Both params passed to greatestCommonDivisor() method for a gcd value
+     * Both parameters passed to greatestCommonDivisor() method for a gcd value
      * which is used to divide the params and put the fraction values in their lowest terms.
      *
-     * If denom is zero, an <pre>ArithmeticException</pre> error is thrown.
-     * If denom is negative and num is positive, both integers are negated.
-     *
-     * Finally mutated params are set to the instance variables.
+     * If <em>denom</em> is negative and <em>num</em> is positive, both integers are negated.
      *
      * @param num integer, the numerator to normalise
      * @param denom integer, the denominator to normalise
      * @return Pair instance containing normalised values
      */
     static Pair normalise(int num, int denom) {
-        if (denom != 0) {
-            int gcd = greatestCommonDivisor(num, denom);
-            num /= gcd;
-            denom /= gcd;
-            if (denom < 0 && num >= 0) {
-                num *= -1;
-                denom *= -1;
-            }
-            return new Pair(num, denom);
-        } else {
-            throw new ArithmeticException("Denominator cannot be zero");
+        int gcd = greatestCommonDivisor(num, denom);
+        num /= gcd;
+        denom /= gcd;
+        if (denom < 0 && num >= 0) {
+            num *= -1;
+            denom *= -1;
         }
+        return new Pair(num, denom);
     }
 
     /**
      * HELPER METHOD
      * Recursive method using Euclid's' algorithm.
-     * Returns the greatest common denominator of any 2 integers.
+     * Returns the greatest common divisor of any 2 integers.
      *
      * @param num integer, the pre-normalised numerator
      * @param denom integer, the pre-normalised denominator
-     * @return integer
+     * @return integer, the greatest common divisor
      */
     static int greatestCommonDivisor(int num, int denom) {
         if (denom == 0) return num;
@@ -286,7 +291,7 @@ public class FractionImpl implements Fraction {
      */
     @Override
     public String toString() {
-        if (getDenominator() == 1 && getNumerator() != 0) {
+        if (getNumerator() != 0 && getDenominator() == 1) {
             return String.valueOf(getNumerator());
         }
         return String.format("%s/%s", getNumerator(), getDenominator());
