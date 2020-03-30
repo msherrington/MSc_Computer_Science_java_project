@@ -23,6 +23,14 @@ public class FractionImpl implements Fraction {
         this.denominator = denom;
     }
 
+    private int getNumerator() {
+        return this.numerator;
+    }
+
+    private int getDenominator() {
+        return this.denominator;
+    }
+
     /**
      * Parameters are the <em>numerator</em> and the <em>denominator</em>.
      * Normalize the fraction as you create it.
@@ -155,8 +163,8 @@ public class FractionImpl implements Fraction {
         // initialise object variable
         FractionImpl frac = (FractionImpl) f;
         // calculate new numerator and denominator
-        int num = (this.numerator * frac.denominator) + (this.denominator * frac.numerator);
-        int denom = this.denominator * frac.denominator;
+        int num = (getNumerator() * frac.getDenominator()) + (getDenominator() * frac.getNumerator());
+        int denom = getDenominator() * frac.getDenominator();
         // create and return a new Fraction using calculated integers
         return new FractionImpl(num, denom);
     }
@@ -169,8 +177,8 @@ public class FractionImpl implements Fraction {
         // initialise object variable
         FractionImpl frac = (FractionImpl) f;
         // calculate new numerator and denominator
-        int num = (this.numerator * frac.denominator) - (this.denominator * frac.numerator);
-        int denom = this.denominator * frac.denominator;
+        int num = (getNumerator() * frac.getDenominator()) - (getDenominator() * frac.getNumerator());
+        int denom = getDenominator() * frac.getDenominator();
         // create and return a new Fraction using calculated integers
         return new FractionImpl(num, denom);
     }
@@ -183,8 +191,8 @@ public class FractionImpl implements Fraction {
         // initialise object variable
         FractionImpl frac = (FractionImpl) f;
         // calculate new numerator and denominator
-        int num = this.numerator * frac.numerator;
-        int denom = this.denominator * frac.denominator;
+        int num = getNumerator() * frac.getNumerator();
+        int denom = getDenominator() * frac.getDenominator();
         // create and return a new Fraction using calculated integers
         return new FractionImpl(num, denom);
     }
@@ -197,8 +205,8 @@ public class FractionImpl implements Fraction {
         // initialise object variable
         FractionImpl frac = (FractionImpl) f;
         // calculate new numerator and denominator
-        int num = this.numerator * frac.denominator;
-        int denom = this.denominator * frac.numerator;
+        int num = getNumerator() * frac.getDenominator();
+        int denom = getDenominator() * frac.getNumerator();
         // create and return a new Fraction using calculated integers
         return new FractionImpl(num, denom);
     }
@@ -209,7 +217,7 @@ public class FractionImpl implements Fraction {
     @Override
     public Fraction abs() {
         // create and return a new Fraction using numerator's absolute value
-        return new FractionImpl(Math.abs(this.numerator), this.denominator);
+        return new FractionImpl(Math.abs(getNumerator()), getDenominator());
     }
 
     /**
@@ -218,7 +226,7 @@ public class FractionImpl implements Fraction {
     @Override
     public Fraction negate() {
         // create and return a new Fraction with numerator negated
-        return new FractionImpl(this.numerator * -1, this.denominator);
+        return new FractionImpl(getNumerator() * -1, getDenominator());
     }
 
     /**
@@ -238,7 +246,7 @@ public class FractionImpl implements Fraction {
             // if obj is of class Fraction, initialise object variable
             FractionImpl f = (FractionImpl) obj;
             // return a boolean based on Fractions having equal instance variables
-            return this.numerator == f.numerator && this.denominator == f.denominator;
+            return getNumerator() == f.getNumerator() && getDenominator() == f.getDenominator();
         }
         return false;
     }
@@ -257,7 +265,7 @@ public class FractionImpl implements Fraction {
     @Override
     public Fraction inverse() {
         // create and return a new Fraction with numerator and denominator swapped
-        return new FractionImpl(this.denominator, this.numerator);
+        return new FractionImpl(getDenominator(), getNumerator());
     }
 
     /**
@@ -268,8 +276,8 @@ public class FractionImpl implements Fraction {
         // initialise object variable
         FractionImpl f = (FractionImpl) o;
         // cast fractions into doubles
-        double thisFrac = this.numerator / (double) this.denominator;
-        double otherFrac = f.numerator / (double) f.denominator;
+        double thisFrac = getNumerator() / (double) getDenominator();
+        double otherFrac = f.getNumerator() / (double) f.getDenominator();
         // use Double compare to return an integer
         return Double.compare(thisFrac, otherFrac);
     }
@@ -279,9 +287,9 @@ public class FractionImpl implements Fraction {
      */
     @Override
     public String toString() {
-        if (this.denominator == 1 && this.numerator != 0) {
-            return String.valueOf(this.numerator);
+        if (getDenominator() == 1 && getNumerator() != 0) {
+            return String.valueOf(getNumerator());
         }
-        return String.format("%s/%s", this.numerator, this.denominator);
+        return String.format("%s/%s", getNumerator(), getDenominator());
     }
 }
