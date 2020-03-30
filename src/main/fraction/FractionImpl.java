@@ -10,7 +10,6 @@ public class FractionImpl implements Fraction {
 //    TODO: re-check comments (params, returns, etc),
 //    int overflow (read Java textbook)
     // check method names have not changed
-//    double check comments wording- the restructure added main.fraction and main.test all over the place
     // readMe file
     // import order?
 

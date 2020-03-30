@@ -1,11 +1,12 @@
 package main.fraction;
 
 import org.junit.jupiter.api.*;
-import static org.junit.jupiter.api.Assertions.*;
+
 import java.util.*;
 import main.pair.Pair;
 
 import static main.fraction.FractionImpl.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 class FractionImplTest {
 
@@ -33,15 +34,16 @@ class FractionImplTest {
     }
 
     // add more crazy function values into testing??
-    // or at least change integers to fractions e.g. 5/8
-    // and test top heavy fractions?
-
-    // think of other ways to test, outside of testing each method
+    // or at least change integers to fractions e.g. 5/8 and top heavy fractions?
+    // check comments
 
     @Test
     void testFormatString() {
         // assert formatted numerator value
         assertEquals(formatString("3/2", 'N'), 3);
+
+        // assert numerator value whitespace is trimmed
+        assertEquals(formatString("    7    ", 'N'), 7);
 
         // assert formatted denominator value
         assertEquals(formatString("3/5", 'D'), 5);
@@ -56,7 +58,7 @@ class FractionImplTest {
 
         // assert NoSuchElementException for empty string
         assertThrows(NoSuchElementException.class, () -> {
-            formatString("", 'N');
+            formatString("  ", 'N');
         });
     }
 
