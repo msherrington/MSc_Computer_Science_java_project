@@ -6,7 +6,6 @@ import java.util.*;
 public class FractionImpl implements Fraction {
 
 //    TODO: re-check comments (params, returns, etc),
-//    tests (including division by zero),
 //    int overflow (read Java textbook)
     // check method names have not changed
 //    double check comments wording- the restructure added main.fraction and main.test all over the place
@@ -15,12 +14,12 @@ public class FractionImpl implements Fraction {
     private int numerator;
     private int denominator;
 
-    private void setNumerator(int num) {
-        this.numerator = num;
+    private void setNumerator(int numerator) {
+        this.numerator = numerator;
     }
 
-    private void setDenominator(int denom) {
-        this.denominator = denom;
+    private void setDenominator(int denominator) {
+        this.denominator = denominator;
     }
 
     private int getNumerator() {
@@ -33,14 +32,13 @@ public class FractionImpl implements Fraction {
 
     /**
      * Parameters are the <em>numerator</em> and the <em>denominator</em>.
-     * Normalize the fraction as you create it.
-     * For instance, if the parameters are <pre>(8, -12)</pre>, create a <pre>Fraction</pre> with numerator
-     * <pre>-2</pre> and denominator <pre>3</pre>.
      *
-     * The constructor should throw an <pre>ArithmeticException</pre> if the denominator is zero.
+     * Parameters passed to normalise() method for conversion to lowest terms.
+     * Normalise() will throw an <pre>ArithmeticException</pre> if the denominator is zero.
+     * Otherwise the normalised values are set as instance variables.
      *
-     * @param numerator:
-     * @param denominator:
+     * @param numerator: integer
+     * @param denominator: integer
      */
     public FractionImpl(int numerator, int denominator) {
         Pair normalised = normalise(numerator, denominator);
@@ -61,8 +59,9 @@ public class FractionImpl implements Fraction {
 
     /**
      * The parameter is a <pre>String</pre> containing either a whole number, or a fraction,
-     * Each value (whether 1 or 2) is parsed to integers by stringToInt() method.
-     * Then passed to normalise() method for normalisation and setting of instance variables.
+     * Each value in the string is parsed to integer by stringToInt() method.
+     * Parsed integers passed to normalise() method for conversion to lowest terms.
+     * Normalised values are set as instance variables.
      *
      * A <pre>InputMismatchException</pre> error is thrown if more than 2 fraction values are passed in.
      * A <pre>NoSuchElementException</pre> error is thrown if the string is empty.
@@ -244,9 +243,9 @@ public class FractionImpl implements Fraction {
     public boolean equals(Object obj) {
         if (obj instanceof Fraction) {
             // if obj is of class Fraction, initialise object variable
-            FractionImpl f = (FractionImpl) obj;
+            FractionImpl frac = (FractionImpl) obj;
             // return a boolean based on Fractions having equal instance variables
-            return getNumerator() == f.getNumerator() && getDenominator() == f.getDenominator();
+            return getNumerator() == frac.getNumerator() && getDenominator() == frac.getDenominator();
         }
         return false;
     }
@@ -274,12 +273,12 @@ public class FractionImpl implements Fraction {
     @Override
     public int compareTo(Fraction o) {
         // initialise object variable
-        FractionImpl f = (FractionImpl) o;
+        FractionImpl frac = (FractionImpl) o;
         // cast fractions into doubles
-        double thisFrac = getNumerator() / (double) getDenominator();
-        double otherFrac = f.getNumerator() / (double) f.getDenominator();
+        double thisFraction = getNumerator() / (double) getDenominator();
+        double otherFraction = frac.getNumerator() / (double) frac.getDenominator();
         // use Double compare to return an integer
-        return Double.compare(thisFrac, otherFrac);
+        return Double.compare(thisFraction, otherFraction);
     }
 
     /**

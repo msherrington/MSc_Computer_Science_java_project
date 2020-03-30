@@ -1,6 +1,10 @@
 package main.pair;
 
 public class Pair {
+    /**
+     * Generic Pair class used in FractionImpl constructors
+     */
+
     private int first;
     private int second;
 
