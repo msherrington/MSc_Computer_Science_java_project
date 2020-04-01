@@ -1,9 +1,9 @@
 package main.fraction;
 
+import main.pair.Pair;
 import org.junit.jupiter.api.*;
 
 import java.util.*;
-import main.pair.Pair;
 
 import static main.fraction.FractionImpl.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -35,7 +35,7 @@ class FractionImplTest {
 
     // add more crazy function values into testing??
     // or at least change integers to fractions e.g. 5/8 and top heavy fractions?
-    // check comments
+    // check in-line comments
 
     @Test
     void testFormatString() {
@@ -262,7 +262,7 @@ class FractionImplTest {
     }
 
     @Test
-    void testProjectRequirements() {
+    void testOtherProjectRequirements() {
         // assert zero representation
         assertEquals(zero.toString(), "0/1");
 

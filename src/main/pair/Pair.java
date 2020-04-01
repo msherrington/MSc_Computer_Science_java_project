@@ -2,7 +2,7 @@ package main.pair;
 
 public class Pair {
     /**
-     * Generic Pair class used in FractionImpl constructors
+     * Generic Pair class
      */
 
     private int first;
