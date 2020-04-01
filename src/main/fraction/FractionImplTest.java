@@ -10,15 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class FractionImplTest {
 
-    private static FractionImpl minusTwo;
-    private static FractionImpl minusOne;
-    private static FractionImpl minusHalf;
-    private static FractionImpl zero;
-    private static FractionImpl oneQuarter;
-    private static FractionImpl half;
-    private static FractionImpl threeQuarters;
-    private static FractionImpl one;
-    private static FractionImpl two;
+    private static FractionImpl minusTwo, minusOne, minusHalf, zero, oneQuarter, half, threeQuarters, one, two;
 
     @BeforeAll
     static void setUp() {
@@ -32,10 +24,6 @@ class FractionImplTest {
         one = new FractionImpl(1);
         two = new FractionImpl(2);
     }
-
-    // add more crazy function values into testing??
-    // or at least change integers to fractions e.g. 5/8 and top heavy fractions?
-    // check in-line comments
 
     @Test
     void testFormatString() {
@@ -213,7 +201,7 @@ class FractionImplTest {
         assertFalse(half.equals(minusOne));
 
         // assert parameter not a Fraction object
-        assertFalse(half.equals(new Pair(2,3)));
+        assertFalse(half.equals(new Pair(1,2)));
 
     }
 
