@@ -14,15 +14,15 @@ Java provides classes for working with several types of numbers, but it does not
 
 The denominator can never be zero.
 
-A zero numerator will always be represented as `0/1`
+A zero numerator will always be represented as `0/1`.
 
-Fractions are always reduced to lowest terms before calculation.
+Fractions are always reduced to lowest terms before calculation:
 
-			4/6		=>	2/3
+			4/6	=>	2/3
 			17/34	=>	1/2
 			0/999	=> 	0/1
 
-Negatives cancel each other out
+Negatives cancel each other out:
 
 			-5/-12	=> 	5/12
 
