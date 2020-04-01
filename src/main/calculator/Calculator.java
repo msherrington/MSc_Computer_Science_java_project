@@ -50,6 +50,11 @@ public class Calculator {
         actions.put("I", "Inverse of");
     }
 
+    /**
+     * Initialise operator symbol HashMaps.
+     * Show calculator welcome messages.
+     * Run <em>fractionInput()</em> for the first fraction.
+     */
     public static void start() {
 
         initialiseHashMaps();
@@ -62,6 +67,18 @@ public class Calculator {
 
     }
 
+    /**
+     * Request input of fraction value. The scanner loops until <em>FractionImpl</em>
+     * is created without errors, or user quits the program.
+     *
+     * For <em>first</em> identifier, create <em>FractionImpl</em>, set to instance variable
+     * and run <em>operatorInput()</em> to load operator menu choices.
+     *
+     * For <em>second</em> identifier, create <em>FractionImpl</em>, set to instance variable
+     * and run relevant calculations on both fractions.
+     *
+     * @param identifier string identifying first or second fraction input
+     */
     private static void fractionInput(String identifier) {
         System.out.println(String.format("Please enter the %s fraction:", identifier));
         FractionImpl fraction = null;
@@ -94,6 +111,12 @@ public class Calculator {
         }
     }
 
+    /**
+     * Display operator menu choices. Loop input until user chooses correctly
+     * or quits the program. Save operator choice to instance variable.
+     * Depending on operator, if second fraction is required, run <em>fractionInput()</em>
+     * again, or perform calculation on just the first Fraction.
+     */
     private static void operatorInput() {
         System.out.println("Please enter the operator symbol or letter:");
         Scanner input = new Scanner(System.in);
@@ -130,6 +153,9 @@ public class Calculator {
         }
     }
 
+    /**
+     * Run switch statement against the instance operator. Perform relevant calculation and display results.
+     */
     private static void calculate() {
         switch (getOperator()) {
             case "A":
@@ -173,6 +199,9 @@ public class Calculator {
         runAgainOrQuit();
     }
 
+    /**
+     * Loop user input until user chooses valid response or quits the program.
+     */
     private static void runAgainOrQuit() {
         Scanner input = new Scanner(System.in);
         String choice;
