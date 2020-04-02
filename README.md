@@ -7,8 +7,8 @@ Java provides classes for working with several types of numbers, but it does not
 
 ## Execution
 
-- Run main() and folllow the instructions in the terminal.
-- Press Q at anytime to quit the program.
+- Run main() and follow the instructions in the terminal.
+- Press Q at any time to quit the program.
 
 ## Program Defaults
 
